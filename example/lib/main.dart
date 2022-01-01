@@ -49,6 +49,7 @@ class _HomePageState extends State<HomePage> {
             showMonth: false,
             initialDate: _selectedDate,
             firstDate: DateTime.now(),
+            dayHeight: 60,
             lastDate: DateTime.now().add(Duration(days: 365)),
             onDateSelected: (date) {
               setState(() {
@@ -58,6 +59,8 @@ class _HomePageState extends State<HomePage> {
             leftMargin: 20,
             monthColor: Colors.white70,
             dayColor: Colors.black,
+            dayFontSize: 14,
+            dayTextFontSize: 12,
             dayNameColor: Color(0xFF333A47),
             activeDayColor: Colors.white,
             activeBackgroundDayColor: Colors.redAccent[100],

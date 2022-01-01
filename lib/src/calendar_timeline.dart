@@ -132,7 +132,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   /// the days show will be the available
   SizedBox _buildDayList() {
     return SizedBox(
-      height: 75,
+      height: widget.dayHeight??60,
       child: ScrollablePositionedList.builder(
         itemScrollController: _controllerDay,
         initialScrollIndex: _daySelectedIndex ?? 0,
@@ -163,8 +163,8 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 dayNameColor: widget.dayNameColor,
                 dayFontSize: widget.dayTextFontSize,
                 fontSize: widget.dayFontSize,
-                height: widget.dayHeight,
-                width: widget.dayWidth,
+                height: widget.dayHeight??60,
+                width: widget.dayWidth??60,
               ),
               if (index == _days.length - 1)
                 SizedBox(
