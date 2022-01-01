@@ -3,6 +3,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
+// import 'day_item.dart';
 import 'day_item.dart';
 import 'month_item.dart';
 import 'util/utils.dart';
@@ -28,10 +29,15 @@ class CalendarTimeline extends StatefulWidget {
   final Color? dotsColor;
   final Color? dayNameColor;
   final String? locale;
+  final double? dayTextFontSize;
+  final double? dayFontSize;
+  final double? dayHeight;
+  final double? dayWidth;
 
   /// If true, it will show a separate row for the years.
   /// It defaults to false
   final bool showYears;
+  final bool showMonth;
 
   CalendarTimeline({
     Key? key,
@@ -48,7 +54,7 @@ class CalendarTimeline extends StatefulWidget {
     this.dotsColor,
     this.dayNameColor,
     this.locale,
-    this.showYears = false,
+    this.showYears = false, this.dayTextFontSize, this.dayFontSize, this.dayHeight, this.dayWidth, this.showMonth=true,
   })  : assert(
           initialDate.difference(firstDate).inDays >= 0,
           'initialDate must be on or after firstDate',
@@ -103,7 +109,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
     super.didUpdateWidget(oldWidget);
     _initCalendar();
     if (widget.showYears) _moveToYearIndex(_yearSelectedIndex ?? 0);
-    _moveToMonthIndex(_monthSelectedIndex ?? 0);
+    if (widget.showMonth)_moveToMonthIndex(_monthSelectedIndex ?? 0);
     _moveToDayIndex(_daySelectedIndex ?? 0);
   }
 
@@ -115,7 +121,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         if (widget.showYears) _buildYearList(),
-        _buildMonthList(),
+        if(widget.showMonth) _buildMonthList(),
         _buildDayList(),
       ],
     );
@@ -155,6 +161,10 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 activeDayBackgroundColor: widget.activeBackgroundDayColor,
                 dotsColor: widget.dotsColor,
                 dayNameColor: widget.dayNameColor,
+                dayFontSize: widget.dayTextFontSize,
+                fontSize: widget.dayFontSize,
+                height: widget.dayHeight,
+                width: widget.dayWidth,
               ),
               if (index == _days.length - 1)
                 SizedBox(
@@ -322,7 +332,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   _resetCalendar(DateTime date) {
     if (widget.showYears) {
       _generateMonths(date);
-      _moveToMonthIndex(_monthSelectedIndex ?? 0);
+      if (widget.showMonth)_moveToMonthIndex(_monthSelectedIndex ?? 0);
     }
     _generateDays(date);
     _daySelectedIndex = date.month == _selectedDate!.month
@@ -350,7 +360,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   }
 
   _goToActualMonth(int index) {
-    _moveToMonthIndex(index);
+    if(widget.showMonth)_moveToMonthIndex(index);
     _monthSelectedIndex = index;
     _resetCalendar(_months[index]);
     setState(() {});

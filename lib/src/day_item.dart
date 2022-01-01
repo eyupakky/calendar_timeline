@@ -7,12 +7,15 @@ class DayItem extends StatelessWidget {
   final bool isSelected;
   final Function onTap;
   final Color? dayColor;
+  final double? fontSize;
   final Color? activeDayColor;
   final Color? activeDayBackgroundColor;
   final bool available;
   final Color? dotsColor;
   final Color? dayNameColor;
-
+  final double? height;
+  final double? width;
+  final double? dayFontSize;
   const DayItem({
     Key? key,
     required this.dayNumber,
@@ -24,11 +27,8 @@ class DayItem extends StatelessWidget {
     this.activeDayBackgroundColor,
     this.available = true,
     this.dotsColor,
-    this.dayNameColor,
+    this.dayNameColor, this.fontSize,this.height,this.width,this.dayFontSize
   }) : super(key: key);
-
-  final double height = 70.0;
-  final double width = 60.0;
 
   _buildDay(BuildContext context) {
     final textStyle = TextStyle(
@@ -36,11 +36,11 @@ class DayItem extends StatelessWidget {
         ? dayColor ?? Theme.of(context).colorScheme.secondary
         : dayColor?.withOpacity(0.5) ??
         Theme.of(context).colorScheme.secondary.withOpacity(0.5),
-      fontSize: 32,
+      fontSize: fontSize??22,
       fontWeight: FontWeight.normal);
     final selectedStyle = TextStyle(
       color: activeDayColor ?? Colors.white,
-      fontSize: 32,
+      fontSize: fontSize??22,
       fontWeight: FontWeight.bold,
       height: 0.8,
     );
@@ -55,8 +55,8 @@ class DayItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(12.0),
         )
           : BoxDecoration(color: Colors.transparent),
-        height: height,
-        width: width,
+        height: height??70,
+        width: width??60,
         child: Column(
           children: <Widget>[
             if (isSelected) ...[
@@ -69,13 +69,12 @@ class DayItem extends StatelessWidget {
               dayNumber.toString(),
               style: isSelected ? selectedStyle : textStyle,
             ),
-            if (isSelected)
               Text(
                 shortName,
                 style: TextStyle(
                   color: dayNameColor ?? activeDayColor ?? Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                  fontSize: dayFontSize??14,
                 ),
               ),
           ],
