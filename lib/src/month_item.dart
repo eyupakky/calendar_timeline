@@ -6,11 +6,13 @@ class MonthItem extends StatelessWidget {
   final Function onTap;
   final bool isSelected;
   final Color? color;
+  final int alpha;
 
   MonthItem(
       {required this.name,
       required this.onTap,
       this.isSelected = false,
+      this.alpha = 150,
       this.color});
 
   @override
@@ -21,7 +23,7 @@ class MonthItem extends StatelessWidget {
         this.name.toUpperCase(),
         style: TextStyle(
           fontSize: 14,
-          color: this.isSelected ? color : color!.withAlpha(220),
+          color: this.isSelected ? color : color!.withAlpha(alpha),
           fontWeight: this.isSelected ? FontWeight.bold : FontWeight.w300,
         ),
       ),

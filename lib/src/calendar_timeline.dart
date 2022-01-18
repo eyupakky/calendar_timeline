@@ -26,6 +26,7 @@ class CalendarTimeline extends StatefulWidget {
   final Color? activeDayColor;
   final Color? activeBackgroundDayColor;
   final Color? monthColor;
+  final int monthAlpha;
   final Color? dotsColor;
   final Color? dayNameColor;
   final String? locale;
@@ -54,7 +55,13 @@ class CalendarTimeline extends StatefulWidget {
     this.dotsColor,
     this.dayNameColor,
     this.locale,
-    this.showYears = false, this.dayTextFontSize, this.dayFontSize, this.dayHeight, this.dayWidth, this.showMonth=true,
+    this.showYears = false,
+    this.dayTextFontSize,
+    this.dayFontSize,
+    this.dayHeight,
+    this.dayWidth,
+    this.showMonth = true,
+    this.monthAlpha=150,
   })  : assert(
           initialDate.difference(firstDate).inDays >= 0,
           'initialDate must be on or after firstDate',
@@ -109,7 +116,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
     super.didUpdateWidget(oldWidget);
     _initCalendar();
     if (widget.showYears) _moveToYearIndex(_yearSelectedIndex ?? 0);
-    if (widget.showMonth)_moveToMonthIndex(_monthSelectedIndex ?? 0);
+    if (widget.showMonth) _moveToMonthIndex(_monthSelectedIndex ?? 0);
     _moveToDayIndex(_daySelectedIndex ?? 0);
   }
 
@@ -121,7 +128,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         if (widget.showYears) _buildYearList(),
-        if(widget.showMonth) _buildMonthList(),
+        if (widget.showMonth) _buildMonthList(),
         _buildDayList(),
       ],
     );
@@ -132,7 +139,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   /// the days show will be the available
   SizedBox _buildDayList() {
     return SizedBox(
-      height: widget.dayHeight??60,
+      height: widget.dayHeight ?? 60,
       child: ScrollablePositionedList.builder(
         itemScrollController: _controllerDay,
         initialScrollIndex: _daySelectedIndex ?? 0,
@@ -163,8 +170,8 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 dayNameColor: widget.dayNameColor,
                 dayFontSize: widget.dayTextFontSize,
                 fontSize: widget.dayFontSize,
-                height: widget.dayHeight??60,
-                width: widget.dayWidth??60,
+                height: widget.dayHeight ?? 60,
+                width: widget.dayWidth ?? 60,
               ),
               if (index == _days.length - 1)
                 SizedBox(
@@ -210,13 +217,14 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                     child: YearItem(
                       name: DateFormat.y(_locale).format(currentDate),
                       color: widget.monthColor,
-                      onTap: (){},
+                      onTap: () {},
                     ),
                   ),
                 MonthItem(
                   isSelected: _monthSelectedIndex == index,
                   name: monthName,
                   onTap: () => _goToActualMonth(index),
+                  alpha: widget.monthAlpha,
                   color: widget.monthColor ?? Colors.black87,
                 ),
                 if (index == _months.length - 1)
@@ -332,7 +340,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   _resetCalendar(DateTime date) {
     if (widget.showYears) {
       _generateMonths(date);
-      if (widget.showMonth)_moveToMonthIndex(_monthSelectedIndex ?? 0);
+      if (widget.showMonth) _moveToMonthIndex(_monthSelectedIndex ?? 0);
     }
     _generateDays(date);
     _daySelectedIndex = date.month == _selectedDate!.month
@@ -360,7 +368,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
   }
 
   _goToActualMonth(int index) {
-    if(widget.showMonth)_moveToMonthIndex(index);
+    if (widget.showMonth) _moveToMonthIndex(index);
     _monthSelectedIndex = index;
     _resetCalendar(_months[index]);
     setState(() {});

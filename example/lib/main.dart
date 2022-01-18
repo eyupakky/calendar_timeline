@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
             },
             leftMargin: 20,
             monthColor: Colors.red,
+            monthAlpha: 250,
             dayColor: Colors.black,
             dayFontSize: 14,
             dayTextFontSize: 12,
