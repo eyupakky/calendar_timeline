@@ -61,7 +61,7 @@ class CalendarTimeline extends StatefulWidget {
     this.dayHeight,
     this.dayWidth,
     this.showMonth = true,
-    this.monthAlpha=150,
+    this.monthAlpha = 150,
   })  : assert(
           initialDate.difference(firstDate).inDays >= 0,
           'initialDate must be on or after firstDate',
@@ -223,6 +223,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                 MonthItem(
                   isSelected: _monthSelectedIndex == index,
                   name: monthName,
+                  fontSize: widget.dayFontSize ?? 14,
                   onTap: () => _goToActualMonth(index),
                   alpha: widget.monthAlpha,
                   color: widget.monthColor ?? Colors.black87,

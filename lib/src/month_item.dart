@@ -7,13 +7,15 @@ class MonthItem extends StatelessWidget {
   final bool isSelected;
   final Color? color;
   final int alpha;
+  final double fontSize;
 
   MonthItem(
       {required this.name,
       required this.onTap,
       this.isSelected = false,
       this.alpha = 150,
-      this.color});
+      this.color,
+      this.fontSize=14});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class MonthItem extends StatelessWidget {
       child: Text(
         this.name.toUpperCase(),
         style: TextStyle(
-          fontSize: 14,
+          fontSize: fontSize,
           color: this.isSelected ? color : color!.withAlpha(alpha),
           fontWeight: this.isSelected ? FontWeight.bold : FontWeight.w300,
         ),
