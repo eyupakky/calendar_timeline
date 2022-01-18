@@ -217,7 +217,7 @@ class _CalendarTimelineState extends State<CalendarTimeline> {
                   isSelected: _monthSelectedIndex == index,
                   name: monthName,
                   onTap: () => _goToActualMonth(index),
-                  color: widget.monthColor,
+                  color: widget.monthColor ?? Colors.black87,
                 ),
                 if (index == _months.length - 1)
                   SizedBox(

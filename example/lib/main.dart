@@ -40,13 +40,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.blue,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(8),
           child: CalendarTimeline(
             showYears: false,
-            showMonth: false,
+            showMonth: true,
             initialDate: _selectedDate,
             firstDate: DateTime.now(),
             dayHeight: 60,
@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
               });
             },
             leftMargin: 20,
-            monthColor: Colors.white70,
+            monthColor: Colors.red,
             dayColor: Colors.black,
             dayFontSize: 14,
             dayTextFontSize: 12,
