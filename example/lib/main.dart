@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime _selectedDate;
+  late DateTime _selectedDate;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             lastDate: DateTime.now().add(Duration(days: 365)),
             onDateSelected: (date) {
               setState(() {
-                _selectedDate = date;
+                _selectedDate = date!;
               });
             },
             leftMargin: 20,
